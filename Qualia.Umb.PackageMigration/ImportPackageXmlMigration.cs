@@ -33,12 +33,9 @@ namespace Qualia.Umb.PackageMigration
 
         protected override void Migrate()
         {
-            var planType = Context.Plan.GetType();
-            var resources = planType.Assembly.GetManifestResourceNames();
-            var stream = planType.Assembly.GetManifestResourceStream(planType, resources[0]);
-            var xmlPack = XDocument.Load(stream);
-            var packageBuilder = ImportPackage.FromXmlDataManifest(xmlPack);
+            var packageBuilder = ImportPackage.FromEmbeddedResource(Context.Plan.GetType());
             packageBuilder.Do();
         }
-}
+
+    }
 }
